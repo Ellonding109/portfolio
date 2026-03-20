@@ -48,38 +48,20 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="resume.html">Resume</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
-            </ul>
-          </li>
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#resume">Resume</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
       <div class="header-social-links">
-        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com/Ellonding109" class="github" target="_blank"><i class="bi bi-github"></i></a>
+        <a href="https://linkedin.com/in/bravin-rotich" class="linkedin" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="https://twitter.com/Ellonding109" class="twitter" target="_blank"><i class="bi bi-twitter-x"></i></a>
       </div>
 
     </div>
@@ -144,7 +126,7 @@
               <h3>Get In Touch</h3>
               <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.</p>
 
-              <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <form action="forms/contact.php" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
                 <div class="row gy-4">
 
                   <div class="col-md-6">
@@ -189,20 +171,15 @@
 
     <div class="container">
       <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Bravox</strong> <span>All Rights Reserved<br></span></p>
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Bravox</strong> <span>All Rights Reserved</span></p>
       </div>
       <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
+        <a href="https://twitter.com/Ellonding109" target="_blank"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://github.com/Ellonding109" target="_blank"><i class="bi bi-github"></i></a>
+        <a href="https://linkedin.com/in/bravin-rotich" target="_blank"><i class="bi bi-linkedin"></i></a>
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">Bravo @see CEO Bravox</a>
+        Designed by <strong>Bravin Rotich</strong>
       </div>
     </div>
 
@@ -228,6 +205,99 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  
+  <!-- Contact Form Handler -->
+  <script>
+    const contactForm = document.querySelector('.php-email-form');
+    if (contactForm) {
+      // Add honeypot fields (hidden from users, visible to bots)
+      const honeypotDiv = document.createElement('div');
+      honeypotDiv.style.display = 'none';
+      honeypotDiv.style.position = 'absolute';
+      honeypotDiv.style.left = '-9999px';
+      honeypotDiv.innerHTML = `
+        <input type="text" name="website_url" tabindex="-1" autocomplete="off">
+        <input type="text" name="phone" tabindex="-1" autocomplete="off">
+      `;
+      contactForm.appendChild(honeypotDiv);
+
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const form = this;
+        const loading = form.querySelector('.loading');
+        const errorMessage = form.querySelector('.error-message');
+        const sentMessage = form.querySelector('.sent-message');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        // Hide previous messages
+        loading.style.display = 'none';
+        errorMessage.style.display = 'none';
+        sentMessage.style.display = 'none';
+        
+        // Show loading
+        loading.style.display = 'block';
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
+        
+        const formData = new FormData(form);
+        
+        fetch('forms/contact.php', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.status);
+          }
+          return response.json();
+        })
+        .then(data => {
+          loading.style.display = 'none';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Message';
+          
+          if (data.success) {
+            sentMessage.textContent = data.message;
+            sentMessage.style.display = 'block';
+            form.reset();
+            
+            // If fallback mode, show direct email
+            if (data.fallback && data.direct_email) {
+              sentMessage.innerHTML += '<br><br><strong>Or email me directly:</strong> <a href="mailto:' + data.direct_email + '">' + data.direct_email + '</a>';
+            }
+          } else {
+            errorMessage.textContent = data.message;
+            errorMessage.style.display = 'block';
+          }
+        })
+        .catch(error => {
+          loading.style.display = 'none';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Message';
+          
+          let errorMsg = 'Oops! Something went wrong. ';
+          
+          if (error.message.includes('500')) {
+            errorMsg += 'Server error. Please try again later.';
+          } else if (error.message.includes('405')) {
+            errorMsg += 'Method not allowed.';
+          } else if (error.message.includes('429')) {
+            errorMsg += 'Too many attempts. Please wait a moment.';
+          } else {
+            errorMsg += 'Please try again later or contact me directly at rotichbravin13@gmail.com';
+          }
+          
+          errorMessage.textContent = errorMsg;
+          errorMessage.style.display = 'block';
+          console.error('Contact form error:', error);
+        });
+      });
+    }
+  </script>
 
 </body>
 

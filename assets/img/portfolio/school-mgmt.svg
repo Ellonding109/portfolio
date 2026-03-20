@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#F59E0B" width="800" height="600"/>
+  <text fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold" x="50%" y="40%" text-anchor="middle">School</text>
+  <text fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold" x="50%" y="50%" text-anchor="middle">Management System</text>
+  <text fill="white" font-family="Arial, sans-serif" font-size="18" x="50%" y="60%" text-anchor="middle">PHP • MySQL • Database Design</text>
+</svg>
